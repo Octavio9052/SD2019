@@ -1,12 +1,23 @@
+package com.distribuido.hw.cetys;
+
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 import java.util.Date;
 
+@XmlRootElement(name = "Employment")
+@XmlType(propOrder = { "startDate", "endDate", "company", "jobRole" })
 public class Employment {
-    private String startDate;
-    private String endDate;
+    private Date startDate;
+    private Date endDate;
     private String company;
     private String jobRole;
 
-    public Employment(String startDate, String endDate, String company, String jobRole) {
+    public Employment(){
+
+    }
+
+    public Employment(Date startDate, Date endDate, String company, String jobRole) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.company = company;
@@ -15,7 +26,7 @@ public class Employment {
 
     @Override
     public String toString() {
-        return "Employment{" +
+        return "com.distribuido.hw.cetys.Employment{" +
                 "startDate='" + startDate + '\'' +
                 ", endDate='" + endDate + '\'' +
                 ", company='" + company + '\'' +
@@ -23,22 +34,25 @@ public class Employment {
                 '}';
     }
 
-    public String getStartDate() {
+    @XmlElement(name = "StartDate")
+    public Date getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(String startDate) {
+    public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
 
-    public String getEndDate() {
+    @XmlElement(name = "EndDate")
+    public Date getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(String endDate) {
+    public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
 
+    @XmlElement(name = "Company")
     public String getCompany() {
         return company;
     }
@@ -47,6 +61,7 @@ public class Employment {
         this.company = company;
     }
 
+    @XmlElement(name = "Role")
     public String getJobRole() {
         return jobRole;
     }
