@@ -42,7 +42,7 @@ public class Address {
         this.street = street;
     }
 
-    @XmlElement(name = "OutsideNumber")
+    @XmlElement(name = "Number")
     public String getNumber() {
         return number;
     }

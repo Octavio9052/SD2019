@@ -1,0 +1,29 @@
+html, body {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+#map {
+    height: 400px;
+    width: 500px;
+    margin: 40px;
+}
+#profile {
+    border-radius: 50%;
+    height: 50%;
+    width: 50%;
+}
+.grid-container {
+    display: grid;
+    grid-template-columns: 30% auto;
+    padding: 2%;
+}
+.grid-item {
+    
+}
+#left-panel{
+    background-color: rgba(255,222,173,0.5);
+    border: 1px outset rgba(0, 0, 0, 0.2);
+}
+#right-panel{
+    background-color: rgba(250,128,114,0.2);
+    border: 1px outset rgba(0, 0, 0, 0.2);
+}

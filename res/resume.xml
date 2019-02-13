@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Resume xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <FullName>Jesus Octavio Armenta Millan</FullName>
+  <Cellphone>668641797</Cellphone>
+  <Email>octavio.armenta@outlook.com</Email>
+  <PhotoUri>www.google.com</PhotoUri>
+  <Birthplace>Los Mochis, Sinaloa</Birthplace>
+  <Address>
+    <Street>Corerepe 1106</Street>
+    <Number>1106</Number>
+    <City>Los Mochis</City>
+    <County>Residencial</County>
+  </Address>
+  <Jobs>
+    <Employment>
+      <StartDate>2019-01-01T00:00:00</StartDate>
+      <EndDate>2019-12-12T00:00:00</EndDate>
+      <Company>CESPE</Company>
+      <JobRole>Developer</JobRole>
+    </Employment>
+  </Jobs>
+</Resume>

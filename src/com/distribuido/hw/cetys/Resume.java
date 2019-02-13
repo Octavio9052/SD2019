@@ -1,24 +1,27 @@
 package com.distribuido.hw.cetys;
 
 import javax.xml.bind.annotation.*;
+import java.awt.*;
 import java.util.ArrayList;
 
 @XmlRootElement(name = "Resume")
-@XmlType(propOrder = { "fullName", "cellphone", "email", "photoUri", "birthplace", "address", "jobs" })
+@XmlType(propOrder = { "fullName", "cellphone", "email", "photo", "birthplace", "address", "jobs" })
 public class Resume {
-    // I would like this enum in attribute of "type"
-
     private Email email;
     private String fullName;
     private String cellphone;
-    private String photoUri;
+    private Image photo;
     private String birthplace;
     private Address address;
     private ArrayList<Employment> jobs;
+    @XmlAttribute(name = "xmlns:xsi")
+    private static final String xschemaDeclaration = "http://www.w3.org/2001/XMLSchema-instance";
+    @XmlAttribute(name = "xsi:noNamespaceSchemaLocation")
+    private static final String xsLocation = "testing.xsd";
 
     //region <setters getters>
 
-    @XmlElement(name = "FullName")
+    @XmlElement(name = "Name")
     public String getFullName() {
         return fullName;
     }
@@ -45,13 +48,13 @@ public class Resume {
         this.email = email;
     }
 
-    @XmlElement(name = "PhotoUri")
-    public String getPhotoUri() {
-        return photoUri;
+    @XmlElement(name = "Photo")
+    public Image getPhoto() {
+        return photo;
     }
 
-    public void setPhotoUri(String photoUri) {
-        this.photoUri = photoUri;
+    public void setPhoto(Image photo) {
+        this.photo = photo;
     }
 
     @XmlElement(name = "Birthplace")
@@ -90,19 +93,10 @@ public class Resume {
                 "fullName='" + fullName + '\'' +
                 ", cellphone='" + cellphone + '\'' +
                 ", email='" + email + '\'' +
-                ", photoUri='" + photoUri + '\'' +
+                ", photo='" + photo + '\'' +
                 ", birthplace='" + birthplace + '\'' +
                 ", address=" + address +
                 ", jobs=" + jobs +
                 '}';
     }
 }
-
-/*Curriculum
-nombre
-telefono
-email
-photo
-lugar nacimiento
-direccion: address
-empleos : list < empleos> */

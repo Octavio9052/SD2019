@@ -1,8 +1,10 @@
 package com.distribuido.hw.cetys;
 
+import javax.imageio.ImageIO;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -12,26 +14,56 @@ import java.util.*;
 
  public class ResumeBuilder {
   private Scanner keyboard = new Scanner(System.in);
-  private static final String RESUME_XML = "C:\\Users\\Octavio\\Desktop\\resumeJava.xml";
+  private static final String RESUME_XML_ABS_LOCATION = "D:\\Code\\SD19\\res\\resumeJava.xml";
+  private static final String RESUME_DTD_REL_LOCATION = "Resume.dtd";
+  private static final String RESUME_XSD_LOCATION = "";
+  private static final String RESUME_XSL_REL_LOCATION = "ResumeTransformation.xsl";
+  private static final String RESUME_PHOTO_ABS_LOCATION = "D:\\Code\\SD19\\res\\profile.jpg";
+  private boolean testing = true;
 
   public void run(){
     try{
-      doSerialize(buildResume());
+      doSerialize(buildResume(testing));
     } catch (Exception e){
       System.out.println("Error " + e);
     }
   }
 
-  public void doSerialize(Resume resume) throws JAXBException, IOException {
+  private void doSerialize(Resume resume) throws JAXBException, IOException {
     JAXBContext context = JAXBContext.newInstance(Resume.class);
     Marshaller m = context.createMarshaller();
     m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
     m.setProperty("com.sun.xml.internal.bind.xmlHeaders",
-            "\n<!DOCTYPE Resume SYSTEM  \"Resume.dtd\">");
-    m.marshal(resume, new File(RESUME_XML));
+            "\n<?xml-stylesheet type=\"text/xsl\" href=\""+ RESUME_XSL_REL_LOCATION + "\" ?>\n<!DOCTYPE Resume SYSTEM \"" + RESUME_DTD_REL_LOCATION + "\">");
+    m.marshal(resume, new File(RESUME_XML_ABS_LOCATION));
   }
 
-  private Resume buildResume(){
+  private Resume buildResume(boolean testing){
+      if (testing)
+      {
+          Resume resume = new Resume();
+          Image photo = null;
+            try {
+                photo = ImageIO.read((new File(RESUME_PHOTO_ABS_LOCATION)));
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+          ArrayList<Employment> jobs = new ArrayList<>();
+          Address address = new Address("Bahia Vizcaino", "705", "Moderna" ,"Ensenada");
+          Email email = new Email("armenta.octavio@outlook.com", EmailType.PERSONAL);
+          Employment job = new Employment(new Date(2018-1900, 01, 01), new Date(2019-1900, 01, 01), "CESPE", "Developer");
+          jobs.add(job);
+          jobs.add(job);
+
+          resume.setFullName("Jesus Octavio Armenta Millan");
+          resume.setCellphone("6681641797");
+          resume.setEmail(email);
+          resume.setPhoto(photo);
+          resume.setBirthplace("Los Mochis, Sinaloa");
+          resume.setAddress(address);
+          resume.setJobs(jobs);
+          return resume;
+      }
     Resume resume = new Resume();
     ArrayList<Employment> jobs = new ArrayList<>();
     String[] fieldNames = {"full name",
@@ -43,7 +75,7 @@ import java.util.*;
     resume.setFullName(requestField(fieldNames[0]));
     resume.setEmail(new Email(requestField(fieldNames[1]), requestTypeOfEmail(fieldNames[2])));
     resume.setCellphone(requestField(fieldNames[3]));
-    resume.setPhotoUri(requestField(fieldNames[4]));
+    resume.setPhoto(null);
     resume.setBirthplace(requestField(fieldNames[5]));
     resume.setAddress(requestAddress());
     System.out.println("Input employment");
