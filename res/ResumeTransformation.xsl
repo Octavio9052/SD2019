@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="style.css" type="text/css"/>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
     <meta charset="utf-8"/>
-    <script src="https://maps.googleapis.com/maps/api/js?key= AIzaSyCVXo3jVyaGAUZuplsrYurACV7cfz7fJgI"/>
+    <script src="https://maps.googleapis.com/maps/api/js?key="/>
     <script src="gmap.js">
         <xsl:attribute name="query"><xsl:value-of select="Resume/Address/Street"/> <xsl:value-of select="Resume/Address/Number"/>, <xsl:value-of select="Resume/Address/County"/>, <xsl:value-of select="Resume/Address/City"/>
         </xsl:attribute>
