@@ -51,7 +51,7 @@ import java.util.*;
           ArrayList<Employment> jobs = new ArrayList<>();
           Address address = new Address("Bahia Vizcaino", "705", "Ensenada" ,"Baja California", "22860");
           Email email = new Email("armenta.octavio@outlook.com", EmailType.PERSONAL);
-          Employment job = new Employment(new Date(2018-1900, 01, 01), new Date(2019-1900, 01, 01), "CESPE", "Developer");
+          Employment job = new Employment(new Date(2018-1900, 01, 01), new Date(2019-1900, 02, 01), "CESPE", "Developer");
           jobs.add(job);
           jobs.add(job);
           job = new Employment(new Date(2018-1900, 01, 01), new Date(), "CESPE", "Developer");

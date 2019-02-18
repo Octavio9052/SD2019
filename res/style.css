@@ -14,14 +14,11 @@
     display: grid;
     grid-template-columns: 1fr 2fr;
 }
-.grid-item {
-}
 .aligncenter {
     text-align: center;
 }
 #left-panel{
-    background-color: #385a64; /* #385a64 */
-     /* #01adc3 */
+    background-color: #385a64;
 }
 #right-panel{
     background-color: rgb(255, 255, 255);
@@ -52,10 +49,17 @@
     font-weight: bold;
     text-align: center;
 }
+.white-text {
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+}
+.bold{
+    font-weight: bold;
+}
 #name {
     letter-spacing: 2px;
     font-size: 30px;
-    font-size: 3.0vw;
+    font-size: 2.5vw;
 }
 .spacebox{
     height: 3em;
@@ -95,4 +99,10 @@ table{
 }
 .highlight{
     background-color: #01adc3; 
+}
+.li-business {
+    list-style-image: url('company.png');
+}
+.li-role {
+    list-style-image: url('role.png');
 }
