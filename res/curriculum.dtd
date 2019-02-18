@@ -1,0 +1,19 @@
+<!ELEMENT curriculum (name, phone, birthplace, email, photo, address, jobs)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT phone (#PCDATA)>
+<!ELEMENT birthplace (#PCDATA)>
+<!ATTLIST email type (PERSONAL|WORK|OTHER) #REQUIRED>
+<!ELEMENT email (#PCDATA)>
+<!ELEMENT photo (#PCDATA)>
+<!ELEMENT address (street, number, city, state, zipcode)>
+<!ELEMENT street (#PCDATA)>
+<!ELEMENT number (#PCDATA)>
+<!ELEMENT city (#PCDATA)>
+<!ELEMENT state (#PCDATA)>
+<!ELEMENT zipcode (#PCDATA)>
+<!ELEMENT jobs (job*)>
+<!ELEMENT job (position, company, startdate, enddate)>
+<!ELEMENT position (#PCDATA)>
+<!ELEMENT company (#PCDATA)>
+<!ELEMENT startdate (#PCDATA)>
+<!ELEMENT enddate (#PCDATA)>

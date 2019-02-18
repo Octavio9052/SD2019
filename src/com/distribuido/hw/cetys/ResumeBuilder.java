@@ -15,7 +15,7 @@ import java.util.*;
  public class ResumeBuilder {
   private Scanner keyboard = new Scanner(System.in);
   private static final String RESUME_XML_ABS_LOCATION = "D:\\Code\\SD19\\res\\resumeJava.xml";
-  private static final String RESUME_DTD_REL_LOCATION = "Resume.dtd";
+  private static final String RESUME_DTD_REL_LOCATION = "curriculum.dtd";
   private static final String RESUME_XSD_LOCATION = "";
   private static final String RESUME_XSL_REL_LOCATION = "ResumeTransformation.xsl";
   private static final String RESUME_PHOTO_ABS_LOCATION = "D:\\Code\\SD19\\res\\profile.jpg";
@@ -34,7 +34,7 @@ import java.util.*;
     Marshaller m = context.createMarshaller();
     m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
     m.setProperty("com.sun.xml.internal.bind.xmlHeaders",
-            "\n<?xml-stylesheet type=\"text/xsl\" href=\""+ RESUME_XSL_REL_LOCATION + "\" ?>\n<!DOCTYPE Resume SYSTEM \"" + RESUME_DTD_REL_LOCATION + "\">");
+            "\n<?xml-stylesheet type=\"text/xsl\" href=\""+ RESUME_XSL_REL_LOCATION + "\" ?>\n<!DOCTYPE " + DtdConstants.ROOT_NAME + " SYSTEM \"" + RESUME_DTD_REL_LOCATION + "\">");
     m.marshal(resume, new File(RESUME_XML_ABS_LOCATION));
   }
 
@@ -49,7 +49,7 @@ import java.util.*;
                 System.out.println(e);
             }
           ArrayList<Employment> jobs = new ArrayList<>();
-          Address address = new Address("Bahia Vizcaino", "705", "Moderna" ,"Ensenada");
+          Address address = new Address("Bahia Vizcaino", "705", "Ensenada" ,"Baja California", "22860");
           Email email = new Email("armenta.octavio@outlook.com", EmailType.PERSONAL);
           Employment job = new Employment(new Date(2018-1900, 01, 01), new Date(2019-1900, 01, 01), "CESPE", "Developer");
           jobs.add(job);
@@ -84,6 +84,7 @@ import java.util.*;
       System.out.println("Input new employment? Y/n");
     } while (keyboard.nextLine().toUpperCase().equals("Y"));
 
+    // TODO: Check if arraylist empty, set arraylist to null
     resume.setJobs(jobs);
     System.out.println(resume);
     return resume;
@@ -116,11 +117,11 @@ import java.util.*;
   }
 
   private Address requestAddress(){
-    String[] fields = {"street", "outside number", "county", "city"};
+    String[] fields = {"street", "outside number", "city", "state", "zipcode"};
     for(int i= 0; i < fields.length; i++){
       fields[i] = requestField(fields[i]);
     }
-    return new Address(fields[0], fields[1], fields[2], fields[3]);
+    return new Address(fields[0], fields[1], fields[2], fields[3], fields[4]);
   }
 
   private Date requestDate(String date){

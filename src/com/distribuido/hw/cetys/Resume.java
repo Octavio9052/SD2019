@@ -4,8 +4,8 @@ import javax.xml.bind.annotation.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-@XmlRootElement(name = "Resume")
-@XmlType(propOrder = { "fullName", "cellphone", "email", "photo", "birthplace", "address", "jobs" })
+@XmlRootElement(name = DtdConstants.ROOT_NAME)
+@XmlType(propOrder = { "fullName", "cellphone", "birthplace", "email", "photo", "address", "jobs"})
 public class Resume {
     private Email email;
     private String fullName;
@@ -21,7 +21,7 @@ public class Resume {
 
     //region <setters getters>
 
-    @XmlElement(name = "Name")
+    @XmlElement(name = DtdConstants.FULL_NAME)
     public String getFullName() {
         return fullName;
     }
@@ -30,7 +30,7 @@ public class Resume {
         this.fullName = fullName;
     }
 
-    @XmlElement(name = "Cellphone")
+    @XmlElement(name = DtdConstants.CELLPHONE)
     public String getCellphone() {
         return cellphone;
     }
@@ -39,7 +39,7 @@ public class Resume {
         this.cellphone = cellphone;
     }
 
-    @XmlElement(name = "Email")
+    @XmlElement(name = DtdConstants.EMAIL)
     public Email getEmail() {
         return email;
     }
@@ -48,7 +48,7 @@ public class Resume {
         this.email = email;
     }
 
-    @XmlElement(name = "Photo")
+    @XmlElement(name = DtdConstants.PHOTO)
     public Image getPhoto() {
         return photo;
     }
@@ -57,7 +57,7 @@ public class Resume {
         this.photo = photo;
     }
 
-    @XmlElement(name = "Birthplace")
+    @XmlElement(name = DtdConstants.BIRTHPLACE)
     public String getBirthplace() {
         return birthplace;
     }
@@ -66,7 +66,7 @@ public class Resume {
         this.birthplace = birthplace;
     }
 
-    @XmlElement(name = "Address")
+    @XmlElement(name = DtdConstants.ADDRESS)
     public Address getAddress() {
         return address;
     }
@@ -75,8 +75,8 @@ public class Resume {
         this.address = address;
     }
 
-    @XmlElementWrapper(name = "Employments")
-    @XmlElement(name = "Employment")
+    @XmlElementWrapper(name = DtdConstants.EMPLOYMENTS)
+    @XmlElement(name = DtdConstants.EMPLOYMENT)
     public ArrayList<Employment> getJobs() {
         return jobs;
     }

@@ -5,8 +5,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import java.util.Date;
 
-@XmlRootElement(name = "Employment")
-@XmlType(propOrder = { "startDate", "endDate", "company", "jobRole" })
+@XmlRootElement(name = DtdConstants.EMPLOYMENTS)
+@XmlType(propOrder = { "jobRole", "company", "startDate", "endDate" })
 public class Employment {
     private Date startDate;
     private Date endDate;
@@ -34,7 +34,7 @@ public class Employment {
                 '}';
     }
 
-    @XmlElement(name = "StartDate")
+    @XmlElement(name = DtdConstants.START_DATE)
     public Date getStartDate() {
         return startDate;
     }
@@ -43,7 +43,7 @@ public class Employment {
         this.startDate = startDate;
     }
 
-    @XmlElement(name = "EndDate")
+    @XmlElement(name = DtdConstants.END_DATE)
     public Date getEndDate() {
         return endDate;
     }
@@ -52,7 +52,7 @@ public class Employment {
         this.endDate = endDate;
     }
 
-    @XmlElement(name = "Company")
+    @XmlElement(name = DtdConstants.COMPANY)
     public String getCompany() {
         return company;
     }
@@ -61,7 +61,7 @@ public class Employment {
         this.company = company;
     }
 
-    @XmlElement(name = "Role")
+    @XmlElement(name = DtdConstants.POSITION)
     public String getJobRole() {
         return jobRole;
     }

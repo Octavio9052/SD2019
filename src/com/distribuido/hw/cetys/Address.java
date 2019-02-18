@@ -1,39 +1,43 @@
 package com.distribuido.hw.cetys;
 
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "Address")
-@XmlType(propOrder = { "street", "number", "county", "city" })
+@XmlRootElement(name = DtdConstants.ADDRESS)
+@XmlType(propOrder = { "street", "number" ,"city", "state", "zipCode"})
 public class Address {
     private String street;
     private String number;
-    private String county;
     private String city;
+    private String zipCode;
+    private String state;
 
     public Address(){
 
     }
 
-    public Address(String street, String number, String county, String city) {
+    public Address(String street, String number, String city, String state, String zipcode) {
         this.street = street;
         this.number = number;
-        this.county = county;
         this.city = city;
+        this.state = state;
+        this.zipCode = zipcode;
     }
 
     @Override
     public String toString() {
-        return "com.distribuido.hw.cetys.Address{" +
+        return "Address{" +
                 "street='" + street + '\'' +
                 ", number='" + number + '\'' +
-                ", county='" + county + '\'' +
                 ", city='" + city + '\'' +
+                ", state='" + state + '\'' +
+                ", zipcode='" + zipCode + '\'' +
                 '}';
     }
 
-    @XmlElement(name = "Street")
+    @XmlElement(name = DtdConstants.STREET)
     public String getStreet() {
         return street;
     }
@@ -42,7 +46,7 @@ public class Address {
         this.street = street;
     }
 
-    @XmlElement(name = "Number")
+    @XmlElement(name = DtdConstants.NUMBER)
     public String getNumber() {
         return number;
     }
@@ -51,16 +55,25 @@ public class Address {
         this.number = number;
     }
 
-    @XmlElement(name = "County")
-    public String getCounty() {
-        return county;
+    @XmlElement(name = DtdConstants.ZIP_CODE)
+    public String getZipCode() {
+        return zipCode;
     }
 
-    public void setCounty(String county) {
-        this.county = county;
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
     }
 
-    @XmlElement(name = "City")
+    @XmlElement(name = DtdConstants.STATE)
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    @XmlElement(name = DtdConstants.CITY)
     public String getCity() {
         return city;
     }

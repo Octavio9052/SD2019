@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="curriculum">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="name"/>
+        <xs:element ref="phone"/>
+        <xs:element ref="birthplace"/>
+        <xs:element ref="email"/>
+        <xs:element ref="photo"/>
+        <xs:element ref="address"/>
+        <xs:element ref="jobs"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="name" type="xs:string"/>
+  <xs:element name="phone" type="xs:string"/>
+  <xs:element name="birthplace" type="xs:string"/>
+  <xs:simpleType name="RestrictedString">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[^@]+@[^\.]+\..+" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="email">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="RestrictedString">
+          <xs:attributeGroup ref="attlist.email"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.email">
+    <xs:attribute name="type" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="PERSONAL"/>
+          <xs:enumeration value="WORK"/>
+          <xs:enumeration value="OTHER"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:element name="photo" type="xs:string"/>
+  <xs:element name="address">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="street"/>
+        <xs:element ref="number"/>
+        <xs:element ref="city"/>
+        <xs:element ref="state"/>
+        <xs:element ref="zipcode"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="street" type="xs:string"/>
+  <xs:element name="number" type="xs:string"/>
+  <xs:element name="city" type="xs:string"/>
+  <xs:element name="state" type="xs:string"/>
+  <xs:element name="zipcode" type="xs:string"/>
+  <xs:element name="jobs">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="job"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="job">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="position"/>
+        <xs:element ref="company"/>
+        <xs:element ref="startdate"/>
+        <xs:element ref="enddate"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="position" type="xs:string"/>
+  <xs:element name="company" type="xs:string"/>
+  <xs:element name="startdate" type="xs:dateTime"/>
+  <xs:element name="enddate" type="xs:dateTime"/>
+</xs:schema>

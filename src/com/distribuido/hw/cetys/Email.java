@@ -13,7 +13,7 @@ public class Email {
     this.emailType = emailType;
   }
 
-  @XmlAttribute(name = "type")
+  @XmlAttribute(name = DtdConstants.EMAIL_ATT1_NAME)
   public EmailType getEmailType() {
     return emailType;
   }
