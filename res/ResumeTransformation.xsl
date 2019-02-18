@@ -130,6 +130,7 @@
                                     <xsl:variable name="startValueMonth" select="substring($startDate, 6, 2)+ 0"/>
 
                                     <xsl:variable name="startValue" select="$startValueYear + $startValueMonth + 0"/>
+
                                     <xsl:variable name="endValueYear" select="substring($endDate, 1, 4)* 12"/>
                                     <xsl:variable name="endValueMonth" select="substring($endDate, 6, 2)+ 0"/>
 
@@ -138,51 +139,21 @@
                                     <xsl:variable name="finalYear" select="substring($endDate, 1, 4)+0"/>
                                     <xsl:variable name="startYear" select="substring($startDate, 1, 4)+0"/>
                                     <xsl:variable name="years" select="$finalYear - $startYear"/>
-                                        <xsl:value-of select="$years"/> a
-                                        <xsl:value-of select="position()"/>
-                                    <xsl:for-each select="(//node())[$years >= position()]">
+                                    <xsl:for-each select="(//node())[$years >= position()-1]">
+                                    <xsl:variable name="iterator" select="(substring($startDate, 1, 4)+position()-1)*12"/>
                                         <tr>
-                                            <td>Test <xsl:value-of select="substring($startDate, 1, 4)"/></td>
+                                            <td><xsl:value-of select="substring($startDate, 1, 4)+position()-1"/></td>
+
                                             <xsl:for-each select="(//node())[12 >= position()]">
                                                 <xsl:choose>
-                                                    <xsl:when test = "substring($endDate,6,2) = position()">
-                                                        <td class="highlight"><xsl:value-of select="substring($endDate,9,2)"></xsl:value-of></td>
+                                                    <xsl:when test = "($iterator + position() = $startValue)">
+                                                        <td class="highlight"><xsl:value-of select="substring($startDate,9,2)+0"/></td>
                                                     </xsl:when>
-                                                    <xsl:when test = "substring($endDate,6,2) &gt; position()">
+                                                    <xsl:when test = "($iterator + position() = $endValue)">
+                                                        <td class="highlight"><xsl:value-of select="substring($endDate,9,2)+0"/></td>
+                                                    </xsl:when>
+                                                    <xsl:when test = "($iterator + position() - 1 &gt;= $startValue) and ($iterator + position() - 1 &lt; $endValue)">
                                                         <td class="highlight"></td>
-                                                    </xsl:when>
-                                                    <xsl:otherwise>
-                                                        <td><xsl:value-of select="$startValue"/><xsl:value-of select="$endValue"/></td>
-                                                    </xsl:otherwise>
-                                                </xsl:choose>
-                                            </xsl:for-each>
-                                        </tr>
-                                    </xsl:for-each>
-                                        <xsl:if test="substring($startDate, 1, 4)+1 &lt; $nextYear">
-                                        <tr>
-                                            <td><xsl:value-of select="substring(startdate, 1, 4)+1"/></td>
-                                            <xsl:for-each select="(//node())[12 >= position()]">
-                                                <xsl:choose>
-                                                    <xsl:when test = "substring($endDate,6,2) = position()">
-                                                        <td class="highlight"><xsl:value-of select="substring($endDate,9,2)"></xsl:value-of></td>
-                                                    </xsl:when>
-                                                    <xsl:when test = "substring($endDate,6,2) &gt; position()">
-                                                        <td class="highlight"></td>
-                                                    </xsl:when>
-                                                    <xsl:otherwise>
-                                                        <td><xsl:value-of select="$startValue"/><xsl:value-of select="$endValue"/></td>
-                                                    </xsl:otherwise>
-                                                </xsl:choose>
-                                            </xsl:for-each>
-                                        </tr>
-                                        </xsl:if>
-                                        <xsl:if test="substring($endDate, 1, 4)+2 &lt; $nextYear"><xsl:value-of select="position()"/>asdas
-                                        <tr>
-                                            <td><xsl:value-of select="substring(startdate, 1, 4)+1"/></td>
-                                            <xsl:for-each select="(//node())[12 >= position()]">
-                                                <xsl:choose>
-                                                    <xsl:when test = "substring($endDate,6,2) &lt;= position()">
-                                                        <td><xsl:value-of select="substring($endDate,9,2)"></xsl:value-of></td>
                                                     </xsl:when>
                                                     <xsl:otherwise>
                                                         <td></td>
@@ -190,7 +161,8 @@
                                                 </xsl:choose>
                                             </xsl:for-each>
                                         </tr>
-                                        </xsl:if>
+                                    </xsl:for-each>
+
                                     </tbody>
 
                                     </table>
