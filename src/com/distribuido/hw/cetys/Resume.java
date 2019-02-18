@@ -17,7 +17,7 @@ public class Resume {
     @XmlAttribute(name = "xmlns:xsi")
     private static final String xschemaDeclaration = "http://www.w3.org/2001/XMLSchema-instance";
     @XmlAttribute(name = "xsi:noNamespaceSchemaLocation")
-    private static final String xsLocation = "testing.xsd";
+    private static final String xsLocation = "curriculum.xsd";
 
     //region <setters getters>
 

@@ -1,4 +1,4 @@
-<!ELEMENT curriculum (name, phone, birthplace, email, photo, address, jobs)>
+<!ELEMENT curriculum (name, phone, birthplace, email, photo, address, jobs?)>
 <!ELEMENT name (#PCDATA)>
 <!ELEMENT phone (#PCDATA)>
 <!ELEMENT birthplace (#PCDATA)>
@@ -11,7 +11,7 @@
 <!ELEMENT city (#PCDATA)>
 <!ELEMENT state (#PCDATA)>
 <!ELEMENT zipcode (#PCDATA)>
-<!ELEMENT jobs (job*)>
+<!ELEMENT jobs (job+)>
 <!ELEMENT job (position, company, startdate, enddate)>
 <!ELEMENT position (#PCDATA)>
 <!ELEMENT company (#PCDATA)>

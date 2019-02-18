@@ -54,6 +54,8 @@ import java.util.*;
           Employment job = new Employment(new Date(2018-1900, 01, 01), new Date(2019-1900, 01, 01), "CESPE", "Developer");
           jobs.add(job);
           jobs.add(job);
+          job = new Employment(new Date(2018-1900, 01, 01), new Date(), "CESPE", "Developer");
+          jobs.add(job);
 
           resume.setFullName("Jesus Octavio Armenta Millan");
           resume.setCellphone("6681641797");
@@ -75,19 +77,31 @@ import java.util.*;
     resume.setFullName(requestField(fieldNames[0]));
     resume.setEmail(new Email(requestField(fieldNames[1]), requestTypeOfEmail(fieldNames[2])));
     resume.setCellphone(requestField(fieldNames[3]));
-    resume.setPhoto(null);
+    resume.setPhoto(requestPhoto());
     resume.setBirthplace(requestField(fieldNames[5]));
     resume.setAddress(requestAddress());
-    System.out.println("Input employment");
-    do {
+
+    System.out.println("Input Input new employment? Y/n");
+    while (keyboard.nextLine().toUpperCase().equals("Y"))
+    {
       jobs.add(requestEmployment());
       System.out.println("Input new employment? Y/n");
-    } while (keyboard.nextLine().toUpperCase().equals("Y"));
+    }
+    resume.setJobs( jobs.isEmpty() ? null : jobs);
 
-    // TODO: Check if arraylist empty, set arraylist to null
-    resume.setJobs(jobs);
+
     System.out.println(resume);
     return resume;
+  }
+
+  private Image requestPhoto(){
+      Image photo = null;
+      try {
+          photo = ImageIO.read((new File(requestField("Enter absolute path to valid image file"))));
+      } catch (Exception e) {
+          System.out.println(e);
+      }
+      return photo;
   }
 
   private EmailType requestTypeOfEmail(String text){
@@ -105,7 +119,7 @@ import java.util.*;
   }
 
   private Employment requestEmployment() {
-    String[] fields = {"start date (yyyy MM dd)", "end date (yyyy MM dd)", "company", "job role"};
+    String[] fields = {"start date (yyyy MM dd)", "end date (yyyy MM dd) or CURRENT", "company", "job role"};
     Date[] dates = {new Date(), new Date()};
 
     dates[0] = requestDate(fields[0]);
@@ -117,7 +131,7 @@ import java.util.*;
   }
 
   private Address requestAddress(){
-    String[] fields = {"street", "outside number", "city", "state", "zipcode"};
+    String[] fields = {"street", "outside number", "city", "state", "zip code"};
     for(int i= 0; i < fields.length; i++){
       fields[i] = requestField(fields[i]);
     }
@@ -126,7 +140,11 @@ import java.util.*;
 
   private Date requestDate(String date){
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy MM dd");
-    LocalDate parsedDate = LocalDate.parse(requestField(date), formatter);
+    String input = requestField(date);
+
+    if(input.equals("CURRENT")) return  new Date();
+
+    LocalDate parsedDate = LocalDate.parse(input, formatter);
     Date dateTime = Date.from(parsedDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
     return dateTime;
   }

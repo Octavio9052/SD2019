@@ -1,29 +1,98 @@
-html, body {
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
 #map {
-    height: 400px;
-    width: 500px;
-    margin: 40px;
+    height: 300px;
+    margin-left: 3em;
+    margin-right: 3em;
 }
 #profile {
     border-radius: 50%;
-    height: 50%;
-    width: 50%;
+    height: 250px;
+    width: 250px;
+    margin: 10px;
+    align-content: center;
 }
 .grid-container {
     display: grid;
-    grid-template-columns: 30% auto;
-    padding: 2%;
+    grid-template-columns: 1fr 2fr;
 }
 .grid-item {
-    
+}
+.aligncenter {
+    text-align: center;
 }
 #left-panel{
-    background-color: rgba(255,222,173,0.5);
-    border: 1px outset rgba(0, 0, 0, 0.2);
+    background-color: #385a64; /* #385a64 */
+     /* #01adc3 */
 }
 #right-panel{
-    background-color: rgba(250,128,114,0.2);
+    background-color: rgb(255, 255, 255);
     border: 1px outset rgba(0, 0, 0, 0.2);
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+.content-bg {
+    background-color: #01adc3;
+    color: rgb(255, 255, 255);
+}
+.titles {
+    color: #01adc3;
+    letter-spacing: 5px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bolder;
+    text-transform: uppercase;
+    font-size: 10px;
+    font-size: 1.5vw;
+}
+.subsection-title-txt {
+    color: rgb(255, 255, 255);;
+    letter-spacing: 5px;
+    font-family: 'Roboto', sans-serif;
+    text-transform: uppercase;
+    font-size:10px;
+    font-size: 1.5vw;
+    font-weight: bold;
+    text-align: center;
+}
+#name {
+    letter-spacing: 2px;
+    font-size: 30px;
+    font-size: 3.0vw;
+}
+.spacebox{
+    height: 3em;
+    width: fit-content;
+}
+.spacebox2{
+    height: 0.5em;
+    width: fit-content;
+}
+.center-txt {
+    text-align: center;
+}
+#title-ms {
+    color: white;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 10px;
+    font-size: 1.2vw;
+    padding-bottom: 10px;
+}
+body {
+    background-image: url("background.jpeg");
+    background-size: 100%;
+}
+#main-container {
+    margin: 3em 10em 2em 10em;
+}
+.sub-container {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+table, th, td {
+    border: 1px solid black;
+}
+table{
+    width: 100%;
+    margin-bottom: 2em;
+}
+.highlight{
+    background-color: lightgreen;
 }
