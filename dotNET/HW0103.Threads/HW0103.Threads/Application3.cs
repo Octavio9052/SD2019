@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace HW0103.Threads
@@ -10,7 +11,16 @@ namespace HW0103.Threads
     {
         public void Run()
         {
-            throw new NotImplementedException();
+            UsingList();
+        }
+
+        private void UsingList()
+        {
+            Console.WriteLine("Loading values...");
+
+            var processor = new StudentNumberProcessor();
+
+            processor.RunByThreads(processor.ConvertArrayToList(new StudentNumberReader().ReadStudentsNumberFile()));
         }
     }
 }

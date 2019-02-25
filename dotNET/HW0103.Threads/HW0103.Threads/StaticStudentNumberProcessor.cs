@@ -8,27 +8,23 @@ using System.Threading.Tasks;
 
 namespace HW0103.Threads
 {
-    public class StudentNumberProcessor
+    class StaticStudentNumberProcessor
     {
-        public int TotalProcessed { get; set; }
-        public int TotalEven { get; set; }
-        public int TotalOdd { get; set; }
-        public int TotalRepeated { get; set; }
+        public static int TotalProcessed { get; set; }
+        public static int TotalEven { get; set; }
+        public static int TotalOdd { get; set; }
+        public static int TotalRepeated { get; set; }
 
-        public void RunByThreads(List<int> list)
+        public static void RunByThreads(List<int> list)
         {
-            List<List<int>> chunks = ChunkBy(list, list.Count/2);
             Thread threadOne = new Thread(new ParameterizedThreadStart(CalculateValues));
             Thread threadTwo = new Thread(new ParameterizedThreadStart(CalculateValues));
-            threadOne.Start(chunks.First());
-            threadTwo.Start(chunks.Last());
+            threadOne.Start(list);
+            threadTwo.Start(list);
 
-            while (threadOne.IsAlive || threadTwo.IsAlive)
-            {
-            }
         }
 
-        public void CalculateValues(int[] list)
+        public static void CalculateValues(int[] list)
         {
             int[] processedValues = new int[list.Length];
             Stopwatch stopwatch = new Stopwatch();
@@ -49,7 +45,7 @@ namespace HW0103.Threads
 
 
                 int repetitions = 0;
-                for (var i = 0; (repetitions < 2)&(i < processedValues.Length); i++)
+                for (var i = 0; (repetitions < 2) & (i < processedValues.Length); i++)
                 {
                     var itemValue = processedValues[i];
                     if (studentId == itemValue)
@@ -64,9 +60,9 @@ namespace HW0103.Threads
             PrintResults(stopwatch.ElapsedMilliseconds);
         }
 
-        public void CalculateValues(object paramList)
+        public static void CalculateValues(object paramList)
         {
-            List<int> list = (List<int>) paramList;
+            List<int> list = (List<int>)paramList;
             List<int> processed = new List<int>();
 
             Stopwatch stopwatch = new Stopwatch();
@@ -76,23 +72,14 @@ namespace HW0103.Threads
             {
                 if ((studentId & 1) == 0)
                 {
-                    lock (this)
-                    {
-                        TotalEven++;
-                    }
+                    TotalEven++;
                 }
                 else
                 {
-                    lock (this)
-                    {
-                        TotalOdd++;
-                    }
+                    TotalOdd++;
                 }
 
-                lock (this)
-                {
-                    TotalProcessed++;
-                }
+                TotalProcessed++;
                 processed.Add(studentId);
                 int repetitions = 0;
                 foreach (var item in processed)
@@ -107,11 +94,10 @@ namespace HW0103.Threads
                 }
             }
             stopwatch.Stop();
-            Console.WriteLine(this.GetType().Name);
             PrintResults(stopwatch.ElapsedMilliseconds);
         }
 
-        public void PrintResults(long elapsedMs)
+        public static void PrintResults(long elapsedMs)
         {
             Console.WriteLine();
             Console.WriteLine("Total processed " + TotalProcessed);
@@ -122,7 +108,7 @@ namespace HW0103.Threads
             Console.WriteLine();
         }
 
-        public List<int> ConvertArrayToList(int[] list)
+        public static List<int> ConvertArrayToList(int[] list)
         {
             List<int> outputList = new List<int>();
 
@@ -132,15 +118,6 @@ namespace HW0103.Threads
             }
 
             return outputList;
-        }
-
-        public List<List<int>> ChunkBy(List<int> originalList, int chunkSize)
-        {
-            return originalList
-                .Select((x, i) => new { Index = i, Value = x })
-                .GroupBy(x => x.Index / chunkSize)
-                .Select(x => x.Select(v => v.Value).ToList())
-                .ToList();
         }
     }
 }
