@@ -33,21 +33,27 @@ namespace HW0103.Threads
 
                 processedValues[TotalProcessed++] = studentId;
 
-                if (TotalProcessed != list.Length) continue;
 
-                foreach (var itemValue in processedValues)
+                int repetitions = 0;
+                for (var i = 0; (repetitions < 2)&(i < processedValues.Length); i++)
                 {
-                    if (studentId == itemValue) TotalRepeated++;
+                    var itemValue = processedValues[i];
+                    if (studentId == itemValue)
+                        repetitions++;
+                    if (repetitions > 1)
+                    {
+                        TotalRepeated++;
+                    }
                 }
             }
             stopwatch.Stop();
             PrintResults(stopwatch.ElapsedMilliseconds);
         }
 
-        //Not Used
         public void CalculateValues(List<int> list)
         {
-            var processedValues = new List<int>(list);
+            List<int> processed = new List<int>();
+
             Stopwatch stopwatch = new Stopwatch();
             Console.WriteLine("Processing values...");
             stopwatch.Start();
@@ -62,44 +68,19 @@ namespace HW0103.Threads
                     TotalOdd++;
                 }
 
-                processedValues[TotalProcessed++] = studentId;
-
-                if (TotalProcessed != list.Capacity) continue;
-
-                foreach (var itemValue in processedValues)
-                {
-                    if (studentId == itemValue) TotalRepeated++;
-                }
-            }
-            stopwatch.Stop();
-            PrintResults(stopwatch.ElapsedMilliseconds);
-        }
-
-        public void TestCalculate(int[] list)
-        {
-            List<int> intList = new List<int>();
-            foreach (var number in list)
-            {
-                intList.Add(number);
-            }
-
-            Stopwatch stopwatch = new Stopwatch();
-            Console.WriteLine("Processing values...");
-            stopwatch.Start();
-            foreach (var studentId in intList)
-            {
-                if ((studentId & 1) == 0)
-                {
-                    TotalEven++;
-                }
-                else
-                {
-                    TotalOdd++;
-                }
-
                 TotalProcessed++;
-                if (TotalProcessed != intList.Capacity) continue;
-                if (intList.Contains(studentId)) TotalRepeated++;
+                processed.Add(studentId);
+                int repetitions = 0;
+                foreach (var item in processed)
+                {
+                    if (studentId == item)
+                        repetitions++;
+                    if (repetitions > 1)
+                    {
+                        TotalRepeated++;
+                        break;
+                    }
+                }
             }
             stopwatch.Stop();
             PrintResults(stopwatch.ElapsedMilliseconds);
@@ -108,12 +89,24 @@ namespace HW0103.Threads
         public void PrintResults(long elapsedMs)
         {
             Console.WriteLine();
-            Console.WriteLine("Total Processed " + TotalProcessed);
-            Console.WriteLine("Total Odd " + TotalOdd);
-            Console.WriteLine("Total Even " + TotalEven);
-            Console.WriteLine("Total Repeated " + TotalRepeated);
-            Console.WriteLine();
+            Console.WriteLine("Total processed " + TotalProcessed);
+            Console.WriteLine("Total odd " + TotalOdd);
+            Console.WriteLine("Total even " + TotalEven);
+            Console.WriteLine("Total repeated " + TotalRepeated);
             Console.WriteLine("Total time elapsed: " + elapsedMs + " ms");
+            Console.WriteLine();
+        }
+
+        public List<int> ConvertArrayToList(int[] list)
+        {
+            List<int> outputList = new List<int>();
+
+            foreach (var number in list)
+            {
+                outputList.Add(number);
+            }
+
+            return outputList;
         }
     }
 }

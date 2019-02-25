@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HW0103.Threads
 {
-    class Application1
+    class Application1 : IHomeWork
     {
         public void Run()
         {
@@ -65,9 +65,9 @@ This app will generate n amount of students ids
 and write it to a file
 Optional: Set how many digits the ids will have
 	  Set the path of the file to write
-WARNING: Max number 268435448 will create a file
-of more than 1.7 GB (when 5 digits string)
-- - - - - - - - - - - - - - - - - - - - - - - -");
+WARNING: Max number 100000000 will create a file
+of more than 500 MB (when 5 digits string)
+- - - - - - - - - - - - - - - - - - - - - - - -"); //268435448
             Console.WriteLine();
         }
     }

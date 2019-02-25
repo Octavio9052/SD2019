@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace HW0103.Threads
 {
-    class Application3 : IHomeWork
+    interface IHomeWork
     {
-        public void Run()
-        {
-            throw new NotImplementedException();
-        }
+        void Run();
     }
 }
