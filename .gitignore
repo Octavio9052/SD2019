@@ -1,5 +1,7 @@
 # Ignore large txt files
 HW0103.Threads/**/res/
+/StudentNumbers.txt
+StudentNumbers.txt
 
 # Created by https://www.gitignore.io/api/java,intellij
 # Edit at https://www.gitignore.io/?templates=java,intellij
