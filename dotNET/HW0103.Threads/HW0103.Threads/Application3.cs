@@ -6,12 +6,7 @@ using System.Threading.Tasks;
 
 namespace HW0103.Threads
 {
-    class Program
+    class Application3
     {
-        static void Main(string[] args)
-        {
-            // new Application1().Run();
-            new Application2().Run();
-        }
     }
 }
