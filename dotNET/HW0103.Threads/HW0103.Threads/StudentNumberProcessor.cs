@@ -101,13 +101,15 @@ namespace HW0103.Threads
                         repetitions++;
                     if (repetitions > 1)
                     {
-                        TotalRepeated++;
+                        lock (this)
+                        {
+                            TotalRepeated++;
+                        }
                         break;
                     }
                 }
             }
             stopwatch.Stop();
-            Console.WriteLine(this.GetType().Name);
             PrintResults(stopwatch.ElapsedMilliseconds);
         }
 
