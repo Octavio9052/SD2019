@@ -8,12 +8,16 @@ using System.Threading.Tasks;
 
 namespace HW0103.Threads
 {
+    /***
+     * NOT USED
+     */
     class StaticStudentNumberProcessor
     {
         public static int TotalProcessed { get; set; }
         public static int TotalEven { get; set; }
         public static int TotalOdd { get; set; }
         public static int TotalRepeated { get; set; }
+        public static HashSet<int> OriginalValues = new HashSet<int>();
 
         public static void RunByThreads(List<int> list)
         {
@@ -62,7 +66,7 @@ namespace HW0103.Threads
 
         public static void CalculateValues(object paramList)
         {
-            List<int> list = (List<int>)paramList;
+            List<int> list = (List<int>) paramList;
             List<int> processed = new List<int>();
 
             Stopwatch stopwatch = new Stopwatch();

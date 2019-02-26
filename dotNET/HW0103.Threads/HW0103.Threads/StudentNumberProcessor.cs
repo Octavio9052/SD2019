@@ -15,6 +15,7 @@ namespace HW0103.Threads
         public int TotalOdd { get; set; }
         public int TotalRepeated { get; set; }
         public int TotalSum { get; set; }
+        public HashSet<int> OriginalValues = new HashSet<int>();
  
         public void RunByThreads(List<int> list)
         {
@@ -108,6 +109,11 @@ namespace HW0103.Threads
                         }
                         break;
                     }
+                }
+
+                lock (this)
+                {
+                    if((repetitions<2)&(!OriginalValues.Add(studentId))) TotalRepeated++;
                 }
             }
             lock (this)

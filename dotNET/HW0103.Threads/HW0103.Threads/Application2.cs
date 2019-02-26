@@ -28,7 +28,7 @@ namespace HW0103.Threads
             Console.WriteLine("Loading values...");
 
             var processor = new StudentNumberProcessor();
-            processor.CalculateValues(new StudentNumberReader().ReadStudentsNumberFile());
+            //processor.CalculateValues(new StudentNumberReader().ReadStudentsNumberFile());
             processor = null;
         }
     }
