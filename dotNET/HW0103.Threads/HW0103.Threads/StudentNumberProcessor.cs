@@ -15,7 +15,7 @@ namespace HW0103.Threads
         public int TotalOdd { get; set; }
         public int TotalRepeated { get; set; }
         public int TotalSum { get; set; }
-
+ 
         public void RunByThreads(List<int> list)
         {
             List<List<int>> chunks = ChunkBy(list, list.Count/2);
