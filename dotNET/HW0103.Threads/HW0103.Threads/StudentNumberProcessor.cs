@@ -109,11 +109,10 @@ namespace HW0103.Threads
                         break;
                     }
                 }
-
-                lock (this)
-                {
-                    TotalSum = TotalOdd + TotalEven;
-                }
+            }
+            lock (this)
+            {
+                TotalSum = TotalOdd + TotalEven;
             }
             stopwatch.Stop();
             PrintResults(stopwatch.ElapsedMilliseconds);

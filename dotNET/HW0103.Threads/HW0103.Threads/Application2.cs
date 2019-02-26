@@ -10,7 +10,7 @@ namespace HW0103.Threads
     {
         public void Run()
         {
-            PrimitivesOnly();
+            // PrimitivesOnly();
             UsingList();
         }
 
