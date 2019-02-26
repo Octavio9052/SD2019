@@ -14,6 +14,7 @@ namespace HW0103.Threads
         public int TotalEven { get; set; }
         public int TotalOdd { get; set; }
         public int TotalRepeated { get; set; }
+        public int TotalSum { get; set; }
 
         public void RunByThreads(List<int> list)
         {
@@ -108,6 +109,11 @@ namespace HW0103.Threads
                         break;
                     }
                 }
+
+                lock (this)
+                {
+                    TotalSum = TotalOdd + TotalEven;
+                }
             }
             stopwatch.Stop();
             PrintResults(stopwatch.ElapsedMilliseconds);
@@ -119,6 +125,7 @@ namespace HW0103.Threads
             Console.WriteLine("Total processed " + TotalProcessed);
             Console.WriteLine("Total odd " + TotalOdd);
             Console.WriteLine("Total even " + TotalEven);
+            Console.WriteLine("Total sum " + TotalSum);
             Console.WriteLine("Total repeated " + TotalRepeated);
             Console.WriteLine("Total time elapsed: " + elapsedMs + " ms");
             Console.WriteLine();
