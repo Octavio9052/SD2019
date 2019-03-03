@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Drawing;
+using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 
@@ -12,7 +14,7 @@ namespace TaskManager
 {
     class ProcessRetriever
     {
-        private List<Process> ProcessesData { get; set; }
+        private static List<Process> ProcessesData { get; set; }
         private SortedSet<string> UniqueProcess { get; set; }
         private readonly string DefaultFilePath = @"D:\Octavio\Descargas\test.ico";
 
@@ -25,7 +27,7 @@ namespace TaskManager
         {
             var processList = new List<Process>();
             var uniqueProcessName = new SortedSet<string>();
-            foreach (var process in Process.GetProcesses())
+            foreach (var process in Process.GetProcesses(Environment.MachineName))
             {
                 processList.Add(process);
                 uniqueProcessName.Add(process.ProcessName);
@@ -109,6 +111,65 @@ namespace TaskManager
                 item.SubItems[2].Text = item.Group.Items.Count.ToString();
             }
 
+        }
+
+        public static void KillProcessById(int pid)
+        {
+            Process.GetProcessById(pid).Kill();
+        }
+
+        public static void StartProcessByName(string name)
+        {
+            Process.Start(name);
+        }
+
+        public static void GetMemoryUsedByProcessById(int pid, Label memoryLabel)
+        {
+            var processName = ProcessesData.Find(x => x.Id.Equals(pid)).ProcessName;
+            int i = 0;
+            foreach (var instanceProcess in ProcessesData.FindAll(x => x.ProcessName.Equals(processName)))
+            {
+                if ((instanceProcess.Id == pid) & (i>0) )
+                    memoryLabel.Text = MemoryUsedByProcess(processName + "#" + i) + " / " + BytesToReadableValue(ProcessesData.Find(x => x.Id.Equals(pid)).PrivateMemorySize64);
+                else if (instanceProcess.Id == pid)
+                    memoryLabel.Text = MemoryUsedByProcess(processName) + " / " + BytesToReadableValue(ProcessesData.Find(x => x.Id.Equals(pid)).PrivateMemorySize64);
+                i++;
+            }
+        }
+
+        private static string MemoryUsedByProcess(string process)
+        {
+            try
+            {
+                double memory = 0;
+                PerformanceCounter performanceCounter = new PerformanceCounter();
+
+                performanceCounter.CounterName = "Working Set - Private";
+                performanceCounter.CategoryName = "Process";
+                performanceCounter.InstanceName = process;
+
+                memory = performanceCounter.NextValue();
+
+                performanceCounter.Close();
+                performanceCounter.Dispose();
+
+                return String.Format(" {0:F} MB", (memory / 1024d) / 1024d);
+            }
+            catch (Win32Exception win32)
+            {
+                return "Not allowed " + win32.ToString();
+            }
+            catch (Exception e)
+            {
+                return "Something went wrong " + e.ToString();
+            }
+        }
+
+        private static string BytesToReadableValue(double number)
+        {
+            number = (number/1024d) / 1024d;
+
+            return String.Format(" {0:F} MB", number);
         }
     }
 }
