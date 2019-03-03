@@ -13,9 +13,12 @@ namespace TaskManager
 {
     public partial class TaskMain : Form
     {
-        readonly ManagementEventWatcher _processStartEvent = new ManagementEventWatcher("SELECT * FROM Win32_ProcessStartTrace");
-        readonly ManagementEventWatcher _processStopEvent = new ManagementEventWatcher("SELECT * FROM Win32_ProcessStopTrace");
+        readonly ManagementEventWatcher _processStartEvent =
+            new ManagementEventWatcher("SELECT * FROM Win32_ProcessStartTrace");
 
+        readonly ManagementEventWatcher _processStopEvent =
+            new ManagementEventWatcher("SELECT * FROM Win32_ProcessStopTrace");
+            
 
         public TaskMain()
         {
@@ -55,8 +58,9 @@ namespace TaskManager
             {
                 mainListView.Invoke(new Action(LoadListView));
             }
+
             string processName = e.NewEvent.Properties["ProcessName"].Value.ToString();
-           // e.NewEvent.Properties
+            // e.NewEvent.Properties
             string processID = Convert.ToInt32(e.NewEvent.Properties["ProcessID"].Value).ToString();
 
             Console.WriteLine("Process stopped/started. Name: {0} | ID: {1}", processName, processID);
@@ -68,11 +72,60 @@ namespace TaskManager
             {
                 mainListView.Invoke(new Action(UpdateLoadListView));
             }
+
             string processName = e.NewEvent.Properties["ProcessName"].Value.ToString();
             // e.NewEvent.Properties
             string processID = Convert.ToInt32(e.NewEvent.Properties["ProcessID"].Value).ToString();
 
             Console.WriteLine("Process stopped/started. Name: {0} | ID: {1}", processName, processID);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ProcessRetriever.KillProcessById(int.Parse(input_pid.Text));
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+            }
+            finally
+            {
+                input_pid.Text = string.Empty;
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ProcessRetriever.StartProcessByName(input_pname.Text);
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+            }
+            finally
+            {
+                input_pname.Text = string.Empty;
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        { //txt_memory
+            try
+            {
+                ProcessRetriever.GetMemoryUsedByProcessById(int.Parse(input_pmid.Text), txt_memory);
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+            }
+            finally
+            {
+                input_pmid.Text = string.Empty;
+            }
         }
     }
 }
