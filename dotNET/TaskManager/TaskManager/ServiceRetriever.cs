@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.ServiceProcess;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -14,18 +15,22 @@ namespace TaskManager
 
         public ServiceRetriever()
         {
-            UpdateServices();
+            UpdateServicesData();
         }
 
-        private void UpdateServices()
+        public ServiceRetriever UpdateServicesData()
         {
             var services = new List<ServiceController>();
             foreach (var service in ServiceController.GetServices())
             {
-                if (service.Status == ServiceControllerStatus.Running) services.Add(service);
+                if(service.ServiceName == "aspnet_state")
+                    Console.WriteLine(service.Status.ToString());
+                if ((service.Status == ServiceControllerStatus.Running)|(service.Status == ServiceControllerStatus.StartPending)) services.Add(service);
             }
 
             this.ServicesData = services;
+
+            return this;
         }
 
         private ListViewItem ServiceItem(ServiceController service)

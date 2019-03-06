@@ -6,7 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Drawing;
+using System.Management;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 
@@ -23,7 +25,7 @@ namespace TaskManager
             UpdateProcessData();
         }
 
-        private void UpdateProcessData()
+        public ProcessRetriever UpdateProcessData()
         {
             var processList = new List<Process>();
             var uniqueProcessName = new SortedSet<string>();
@@ -35,6 +37,15 @@ namespace TaskManager
 
             ProcessesData = processList.OrderBy(x => x.ProcessName).ToList();
             UniqueProcess = uniqueProcessName;
+            return this;
+        }
+
+        private void AttachImageToProcess(ListView main)
+        {
+            foreach (ListViewItem item in main.Items)
+            {
+                item.ImageIndex = main.SmallImageList.Images.IndexOfKey(item.SubItems[0].Text);
+            }
         }
 
         private ImageList ProcessesImages()
@@ -59,6 +70,7 @@ namespace TaskManager
                 }
             }
 
+
             return ProcessesImages;
         }
 
@@ -74,17 +86,22 @@ namespace TaskManager
             {
                     process.Id.ToString(),
                     process.ProcessName,
-                    "",
+                    string.Empty,
                     (process.Responding)? "Responding" : "Not responding",
                     process.MachineName,
-                    ""
-                };
+                    string.Empty,
+                    ProcessPath(process)
+            };
+
             var listViewIem = new ListViewItem(row, CreateProcessGroup(process.ProcessName));
+
             return listViewIem;
         }
 
         public void ProcessListView(ListView mainListView)
         {
+            // Copy
+            
             Dictionary<string, int> temp = new Dictionary<string, int>();
             // Reset
             mainListView.Groups.Clear();
@@ -111,6 +128,22 @@ namespace TaskManager
                 item.SubItems[2].Text = item.Group.Items.Count.ToString();
             }
 
+            // Attach icon
+            mainListView.LargeImageList = ProcessesImages();
+            mainListView.SmallImageList = mainListView.LargeImageList;
+            AttachImageToProcess(mainListView);
+        }
+
+        public static string ProcessPath(Process process)
+        {
+            try
+            {
+                return process.MainModule.FileName;
+            }
+            catch
+            {
+                return string.Empty;
+            }
         }
 
         public static void KillProcessById(int pid)

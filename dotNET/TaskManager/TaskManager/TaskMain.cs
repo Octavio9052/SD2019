@@ -18,6 +18,9 @@ namespace TaskManager
 
         readonly ManagementEventWatcher _processStopEvent =
             new ManagementEventWatcher("SELECT * FROM Win32_ProcessStopTrace");
+        
+        private ProcessRetriever ProcessRetriever = new ProcessRetriever();
+        private ServiceRetriever ServiceRetriever = new ServiceRetriever();
             
 
         public TaskMain()
@@ -27,7 +30,7 @@ namespace TaskManager
 
             _processStartEvent.EventArrived += new EventArrivedEventHandler(ProcessStartEvent_EventArrived);
             _processStartEvent.Start();
-            _processStopEvent.EventArrived += new EventArrivedEventHandler(ProcessStartOrStopEvent_EventArrived);
+            _processStopEvent.EventArrived += new EventArrivedEventHandler(ProcessStopEvent_EventArrived);
             _processStopEvent.Start();
         }
 
@@ -38,13 +41,8 @@ namespace TaskManager
 
         private void LoadListView()
         {
-            new ProcessRetriever().ProcessListView(mainListView);
-            new ServiceRetriever().ServicesListView(servicesListView);
-        }
-
-        private void UpdateLoadListView()
-        {
-            new ServiceRetriever().ServicesListView2(servicesListView);
+            ProcessRetriever.UpdateProcessData().ProcessListView(mainListView);
+            ServiceRetriever.UpdateServicesData().ServicesListView(servicesListView);
         }
 
         private void mainListView_SelectedIndexChanged(object sender, EventArgs e)
@@ -52,7 +50,7 @@ namespace TaskManager
 
         }
 
-        private void ProcessStartOrStopEvent_EventArrived(object sender, EventArrivedEventArgs e)
+        private void ProcessStopEvent_EventArrived(object sender, EventArrivedEventArgs e)
         {
             if (mainListView.InvokeRequired)
             {
@@ -60,7 +58,6 @@ namespace TaskManager
             }
 
             string processName = e.NewEvent.Properties["ProcessName"].Value.ToString();
-            // e.NewEvent.Properties
             string processID = Convert.ToInt32(e.NewEvent.Properties["ProcessID"].Value).ToString();
 
             Console.WriteLine("Process stopped/started. Name: {0} | ID: {1}", processName, processID);
@@ -70,11 +67,10 @@ namespace TaskManager
         {
             if (mainListView.InvokeRequired)
             {
-                mainListView.Invoke(new Action(UpdateLoadListView));
+                mainListView.Invoke(new Action(LoadListView));
             }
 
             string processName = e.NewEvent.Properties["ProcessName"].Value.ToString();
-            // e.NewEvent.Properties
             string processID = Convert.ToInt32(e.NewEvent.Properties["ProcessID"].Value).ToString();
 
             Console.WriteLine("Process stopped/started. Name: {0} | ID: {1}", processName, processID);
@@ -113,7 +109,7 @@ namespace TaskManager
         }
 
         private void button3_Click(object sender, EventArgs e)
-        { //txt_memory
+        { 
             try
             {
                 ProcessRetriever.GetMemoryUsedByProcessById(int.Parse(input_pmid.Text), txt_memory);
