@@ -23,8 +23,6 @@ namespace TaskManager
             var services = new List<ServiceController>();
             foreach (var service in ServiceController.GetServices())
             {
-                if(service.ServiceName == "aspnet_state")
-                    Console.WriteLine(service.Status.ToString());
                 if ((service.Status == ServiceControllerStatus.Running)|(service.Status == ServiceControllerStatus.StartPending)) services.Add(service);
             }
 

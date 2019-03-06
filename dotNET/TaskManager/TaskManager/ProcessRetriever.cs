@@ -129,9 +129,9 @@ namespace TaskManager
             }
 
             // Attach icon
-            mainListView.LargeImageList = ProcessesImages();
-            mainListView.SmallImageList = mainListView.LargeImageList;
-            AttachImageToProcess(mainListView);
+            //mainListView.LargeImageList = ProcessesImages();
+            //mainListView.SmallImageList = mainListView.LargeImageList;
+            //AttachImageToProcess(mainListView);
         }
 
         public static string ProcessPath(Process process)
