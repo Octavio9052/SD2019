@@ -50,6 +50,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.txt_memory = new System.Windows.Forms.Label();
+            this.ProcessPath = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // mainListView
@@ -60,7 +61,8 @@
             this.NumberInstances,
             this.ProcessStatus,
             this.ProcessUsername,
-            this.ProcessDescription});
+            this.ProcessDescription,
+            this.ProcessPath});
             this.mainListView.Location = new System.Drawing.Point(0, 0);
             this.mainListView.Name = "mainListView";
             this.mainListView.Size = new System.Drawing.Size(1200, 500);
@@ -218,6 +220,11 @@
             this.txt_memory.Size = new System.Drawing.Size(0, 13);
             this.txt_memory.TabIndex = 11;
             // 
+            // ProcessPath
+            // 
+            this.ProcessPath.Text = "Ruta";
+            this.ProcessPath.Width = 600;
+            // 
             // TaskMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -266,6 +273,7 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Label txt_memory;
+        private System.Windows.Forms.ColumnHeader ProcessPath;
     }
 }
 

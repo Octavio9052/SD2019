@@ -60,7 +60,7 @@ namespace TaskManager
             string processName = e.NewEvent.Properties["ProcessName"].Value.ToString();
             string processID = Convert.ToInt32(e.NewEvent.Properties["ProcessID"].Value).ToString();
 
-            Console.WriteLine("Process stopped/started. Name: {0} | ID: {1}", processName, processID);
+            Console.WriteLine("Process stopped Name: {0} | ID: {1}", processName, processID);
         }
 
         private void ProcessStartEvent_EventArrived(object sender, EventArrivedEventArgs e)
@@ -73,7 +73,7 @@ namespace TaskManager
             string processName = e.NewEvent.Properties["ProcessName"].Value.ToString();
             string processID = Convert.ToInt32(e.NewEvent.Properties["ProcessID"].Value).ToString();
 
-            Console.WriteLine("Process stopped/started. Name: {0} | ID: {1}", processName, processID);
+            Console.WriteLine("Process started. Name: {0} | ID: {1}", processName, processID);
         }
 
         private void button1_Click(object sender, EventArgs e)
