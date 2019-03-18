@@ -25,7 +25,7 @@ namespace GameBusiness
             string sourceFilePath = Path.Combine(sourceDirectory, sourceFileName);
             string destinationFilePath = Path.Combine(destinationDirectory, sourceFileName);
 
-
+            if(File.Exists(destinationFilePath)) File.SetAttributes(destinationFilePath, FileAttributes.Normal);
             File.Copy(sourceFilePath, destinationFilePath, true);
 
             AppDomain appDomain = null;
@@ -40,11 +40,6 @@ namespace GameBusiness
                 // var assembly = value.GetAssembly(FileToByteArray(destinationFilePath));
                 LoadAssembly(FileToByteArray(destinationFilePath));
                 _loader.Execute();
-
-                
-
-
-                AppDomain.Unload(appDomain);
             }
             catch (Exception e)
             {
@@ -52,7 +47,7 @@ namespace GameBusiness
             }
             finally
             {
-               // AppDomain.Unload(appDomain);
+               AppDomain.Unload(appDomain);
             }
         }
 
