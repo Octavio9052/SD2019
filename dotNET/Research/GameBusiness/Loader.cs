@@ -13,7 +13,7 @@ namespace GameBusiness
     {
         private Assembly _assembly;
 
-        public Assembly GetAssembly(byte[] fileBytes)
+        public void GetAssembly(byte[] fileBytes)
         {
             try
             {
@@ -39,33 +39,17 @@ namespace GameBusiness
             {
                 Console.WriteLine(ae);
             }
-
-            return null;
         }
 
-        public object Execute()
+        public void Execute(object objDb = null)
         {
-            /*
-            foreach (Type item in _assembly.GetTypes())
-            {
-                if (!item.IsClass) continue;
-                if (item.GetInterfaces().Contains(type))
-                {
-                    var ctor = item.GetConstructor(new[] { ctorType });
-
-                    var objectLoaded = ctor.Invoke(ctorParameters);
-
-                    var method = type.GetMethod(methodName);
-                    return method.Invoke(objectLoaded, parameters);
-                    break;
-                }
-            }
-            throw new ArgumentException(String.Format("Method Error does not exist"));
-            */
             var t = _assembly.GetType("Animal.Dog");
             var playMethod = t.GetMethod("Play");
             var eatMethod = t.GetMethod("Eat");
             var o = Activator.CreateInstance(t);
+
+            if (objDb != null) o = objDb;
+
             BaseAnimalBusiness test;
             test = (BaseAnimalBusiness)o;
             Console.WriteLine(test.Play());
@@ -75,8 +59,6 @@ namespace GameBusiness
             Console.WriteLine(eatMethod.Invoke(o, null));
             Console.WriteLine(playMethod.Invoke(o, null));
             Console.WriteLine(playMethod.Invoke(o, null));
-
-            return null;
         }
     }
 }

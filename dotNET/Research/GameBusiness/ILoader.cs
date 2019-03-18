@@ -9,7 +9,6 @@ namespace GameBusiness
 {
     interface ILoader
     {
-        Assembly GetAssembly(byte[] fileBytes);
-        object Execute();
+        void GetAssembly(byte[] fileBytes);
     }
 }

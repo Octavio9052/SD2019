@@ -24,18 +24,7 @@ namespace GameBusiness
                 Console.WriteLine("BUSINESS TEST");
                 Console.WriteLine("Type anything to copy file");
                 Console.ReadLine();
-                var test = new Business();
-                test.ExecuteDynamicAssembly();
-
-                test = null;
-
-                Console.WriteLine("before cleanning");
-                GC.Collect();
-                GC.WaitForPendingFinalizers();
-                GC.Collect();
-                GC.WaitForFullGCComplete();
-                GC.Collect();
-                Console.WriteLine("after cleanning");
+                new Business().ExecuteDynamicAssembly();
 
                 Console.WriteLine("Type anything to delete file");
                 Console.ReadLine();

@@ -21,7 +21,6 @@ namespace GameBusiness
 
         public void ExecuteDynamicAssembly()
         {
-            // Use Path class to manipulate file and directory paths.
             string sourceFilePath = Path.Combine(sourceDirectory, sourceFileName);
             string destinationFilePath = Path.Combine(destinationDirectory, sourceFileName);
 
@@ -31,13 +30,11 @@ namespace GameBusiness
             AppDomain appDomain = null;
             try
             {
-                appDomain = AppDomain.CreateDomain("test");
+                appDomain = AppDomain.CreateDomain("ProxyDomain");
                 
                 _loader = (Loader)appDomain.CreateInstanceAndUnwrap(
                     typeof(Loader).Assembly.FullName,
                     typeof(Loader).FullName);
-
-                // var assembly = value.GetAssembly(FileToByteArray(destinationFilePath));
                 LoadAssembly(FileToByteArray(destinationFilePath));
                 _loader.Execute();
             }
@@ -92,17 +89,15 @@ namespace GameBusiness
             return res;
         }
 
-        private bool LoadAssembly(byte[] stream)
+        private void LoadAssembly(byte[] stream)
         {
             try
             {
                 this._loader.GetAssembly(stream);
-                return true;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                return false;
             }
 
 
