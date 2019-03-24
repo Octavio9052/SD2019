@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using AnimalSDK;
@@ -43,22 +45,47 @@ namespace GameBusiness
 
         public void Execute(object objDb = null)
         {
+            var testObj = (AnimalWrapper)objDb;
+
+            if (File.Exists(@"C:\Users\Octavio\Desktop\test.pet"))
+            {
+                Stream stream = new FileStream(@"C:\Users\Octavio\Desktop\test.pet", FileMode.Open,
+                    FileAccess.Read);
+                IFormatter formatter = new BinaryFormatter();
+                testObj = (AnimalWrapper)formatter.Deserialize(stream);
+                stream.Close();
+                stream.Dispose();
+                stream = null;
+            }
+
+
             var t = _assembly.GetType("Animal.Dog");
             var playMethod = t.GetMethod("Play");
             var eatMethod = t.GetMethod("Eat");
             var o = Activator.CreateInstance(t);
 
-            if (objDb != null) o = objDb;
+
+            if (testObj.AnimalState != null) o = testObj.AnimalState;
 
             BaseAnimalBusiness test;
-            test = (BaseAnimalBusiness)o;
+            // test = (BaseAnimalBusiness)o;
+            test = testObj.AnimalState;
             Console.WriteLine(test.Play());
             Console.WriteLine(test.Play());
             Console.WriteLine(test.Play());
-            Console.WriteLine(playMethod.Invoke(o, null));
-            Console.WriteLine(eatMethod.Invoke(o, null));
-            Console.WriteLine(playMethod.Invoke(o, null));
-            Console.WriteLine(playMethod.Invoke(o, null));
+            //Console.WriteLine(playMethod.Invoke(o, null));
+            //Console.WriteLine(eatMethod.Invoke(o, null));
+            //Console.WriteLine(playMethod.Invoke(o, null));
+            //Console.WriteLine(playMethod.Invoke(o, null));
+
+            testObj.AnimalState = test;
+            
+            IFormatter formatter2 = new BinaryFormatter();
+            Stream stream2 = new FileStream(@"C:\Users\Octavio\Desktop\test.pet", FileMode.Create, FileAccess.Write);
+            formatter2.Serialize(stream2, testObj);
+            stream2.Close();
+            stream2.Dispose();
+            stream2 = null;
         }
     }
 }

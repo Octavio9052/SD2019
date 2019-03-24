@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace AnimalSDK
 {
+    [Serializable]
     public class AnimalValue
     {
         public string PropertyName { get; set; }

@@ -17,6 +17,12 @@ namespace GameBusiness
 
         public static void Main(string[] args)
         {
+            Execute();
+        }
+
+
+        public static void Execute()
+        {
             bool active = true;
 
             while (active)
@@ -35,9 +41,6 @@ namespace GameBusiness
                 if (Console.ReadLine().Equals("x")) active = false;
             }
         }
-
-        
-
         
     }
 }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace AnimalSDK
 {
+    [Serializable]
     public abstract class BaseAnimalBusiness : IAnimalActions
     {
         private readonly ICollection<AnimalValue> _gameProperties = new List<AnimalValue>();

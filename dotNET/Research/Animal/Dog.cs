@@ -7,6 +7,7 @@ using AnimalSDK;
 
 namespace Animal
 {
+    [Serializable]
     public class Dog : BaseAnimalBusiness
     {
         private AnimalValue nameValue;

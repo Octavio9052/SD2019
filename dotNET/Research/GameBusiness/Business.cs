@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,6 +23,7 @@ namespace GameBusiness
 
         public void ExecuteDynamicAssembly()
         {
+            AnimalWrapper testWrapper = new AnimalWrapper();
             string sourceFilePath = Path.Combine(sourceDirectory, sourceFileName);
             string destinationFilePath = Path.Combine(destinationDirectory, sourceFileName);
 
@@ -31,12 +34,24 @@ namespace GameBusiness
             try
             {
                 appDomain = AppDomain.CreateDomain("ProxyDomain");
+
+                /*if (File.Exists(@"C:\Users\Octavio\Desktop\test.pet"))
+                {
+                    Stream stream = new FileStream(@"C:\Users\Octavio\Desktop\test.pet", FileMode.Open,
+                        FileAccess.Read);
+                    IFormatter formatter = new BinaryFormatter();
+                    testWrapper = (AnimalWrapper) formatter.Deserialize(stream);
+                    stream.Close();
+                    stream.Dispose();
+                    stream = null;
+                }*/
                 
                 _loader = (Loader)appDomain.CreateInstanceAndUnwrap(
                     typeof(Loader).Assembly.FullName,
                     typeof(Loader).FullName);
                 LoadAssembly(FileToByteArray(destinationFilePath));
-                _loader.Execute();
+                _loader.Execute(testWrapper);
+                Console.WriteLine(testWrapper);
             }
             catch (Exception e)
             {
