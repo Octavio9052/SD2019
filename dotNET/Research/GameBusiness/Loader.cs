@@ -43,7 +43,7 @@ namespace GameBusiness
             }
         }
 
-        public void Execute(object objDb = null)
+        public string Execute(object objDb = null)
         {
             var testObj = (AnimalWrapper)objDb;
 
@@ -92,6 +92,8 @@ namespace GameBusiness
                 stream2.Dispose();
                 stream2 = null;
             }
+
+            return "byte";
         }
     }
 }
