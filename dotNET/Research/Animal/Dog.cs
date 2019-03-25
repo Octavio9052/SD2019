@@ -29,7 +29,7 @@ namespace Animal
             var name = GetGameProperties().First(x => x.PropertyName.Equals("Name")).TextProperty;
 
             currentValue += 12;
-            FunValue.CurrentValue += 20;
+            FunValue.CurrentValue -= 17;
 
             if (FunValue.CurrentValue > maxValue) FunValue.CurrentValue = maxValue;
             if (FunValue.CurrentValue < minValue) FunValue.CurrentValue = minValue;

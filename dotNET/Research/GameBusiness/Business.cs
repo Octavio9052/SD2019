@@ -23,7 +23,7 @@ namespace GameBusiness
 
         public void ExecuteDynamicAssembly()
         {
-            AnimalWrapper testWrapper = new AnimalWrapper();
+            //AnimalWrapper testWrapper = new AnimalWrapper();
             string sourceFilePath = Path.Combine(sourceDirectory, sourceFileName);
             string destinationFilePath = Path.Combine(destinationDirectory, sourceFileName);
 
@@ -34,24 +34,13 @@ namespace GameBusiness
             try
             {
                 appDomain = AppDomain.CreateDomain("ProxyDomain");
-
-                /*if (File.Exists(@"C:\Users\Octavio\Desktop\test.pet"))
-                {
-                    Stream stream = new FileStream(@"C:\Users\Octavio\Desktop\test.pet", FileMode.Open,
-                        FileAccess.Read);
-                    IFormatter formatter = new BinaryFormatter();
-                    testWrapper = (AnimalWrapper) formatter.Deserialize(stream);
-                    stream.Close();
-                    stream.Dispose();
-                    stream = null;
-                }*/
                 
                 _loader = (Loader)appDomain.CreateInstanceAndUnwrap(
                     typeof(Loader).Assembly.FullName,
                     typeof(Loader).FullName);
                 LoadAssembly(FileToByteArray(destinationFilePath));
-                _loader.Execute(testWrapper);
-                Console.WriteLine(testWrapper);
+                _loader.Execute();
+                Console.WriteLine();
             }
             catch (Exception e)
             {
