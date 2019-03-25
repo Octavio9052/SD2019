@@ -14,33 +14,38 @@ namespace GameBusiness
 {
     class Business
     {
-
         string sourceFileName = @"Animal.dll";
         string sourceDirectory = @"D:\Code\SD19\dotNET\Research\GameBusiness\bin\Debug\Stage";
         string destinationDirectory = @"D:\Code\SD19\dotNET\Research\GameBusiness\bin\Debug";
 
-        private Loader _loader;
+        private AnimalLoaderAndExecuter _animalLoaderAndExecuter;
 
         public void ExecuteDynamicAssembly()
         {
-            //AnimalWrapper testWrapper = new AnimalWrapper();
             string sourceFilePath = Path.Combine(sourceDirectory, sourceFileName);
             string destinationFilePath = Path.Combine(destinationDirectory, sourceFileName);
 
-            if(File.Exists(destinationFilePath)) File.SetAttributes(destinationFilePath, FileAttributes.Normal);
+            if (File.Exists(destinationFilePath)) File.SetAttributes(destinationFilePath, FileAttributes.Normal);
             File.Copy(sourceFilePath, destinationFilePath, true);
 
             AppDomain appDomain = null;
             try
             {
                 appDomain = AppDomain.CreateDomain("ProxyDomain");
-                
-                _loader = (Loader)appDomain.CreateInstanceAndUnwrap(
-                    typeof(Loader).Assembly.FullName,
-                    typeof(Loader).FullName);
+
+                _animalLoaderAndExecuter = (AnimalLoaderAndExecuter) appDomain.CreateInstanceAndUnwrap(
+                    typeof(AnimalLoaderAndExecuter).Assembly.FullName,
+                    typeof(AnimalLoaderAndExecuter).FullName);
                 LoadAssembly(FileToByteArray(destinationFilePath));
-                _loader.Execute();
-                Console.WriteLine();
+                var testRefMarshall = _animalLoaderAndExecuter.Execute();
+
+                List<AnimalValue> ojala = testRefMarshall.MarshalledAnimalGameValuesList;
+
+                Console.WriteLine(ojala[0].TextProperty);
+            }
+            catch (InvalidOperationException ioe)
+            {
+                Console.WriteLine(ioe);
             }
             catch (Exception e)
             {
@@ -48,7 +53,7 @@ namespace GameBusiness
             }
             finally
             {
-               AppDomain.Unload(appDomain);
+                AppDomain.Unload(appDomain);
             }
         }
 
@@ -66,6 +71,19 @@ namespace GameBusiness
             return buff;
         }
 
+        private void LoadAssembly(byte[] stream)
+        {
+            try
+            {
+                this._animalLoaderAndExecuter.GetAssembly(stream);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+        }
+
+        #region Below is unused currently
         private AppDomain CreateAppDomain()
         {
             Evidence evidence = new Evidence(AppDomain.CurrentDomain.Evidence);
@@ -73,7 +91,7 @@ namespace GameBusiness
             AppDomain newDomainName = AppDomain.CreateDomain("New Domain", evidence,
                 new AppDomainSetup()
                 {
-                    ApplicationName = "Loader",
+                    ApplicationName = "AnimalLoaderAndExecuter",
                     ApplicationBase = Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath),
                     DynamicBase = Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath),
                     ConfigurationFile = AppDomain.CurrentDomain.SetupInformation.ConfigurationFile,
@@ -81,8 +99,8 @@ namespace GameBusiness
                     PrivateBinPath = GetPrivateBin(AppDomain.CurrentDomain.SetupInformation.ApplicationBase)
                 });
 
-            this._loader = (Loader)newDomainName.CreateInstanceAndUnwrap(
-                Assembly.GetExecutingAssembly().FullName, typeof(Loader).FullName);
+            this._animalLoaderAndExecuter = (AnimalLoaderAndExecuter)newDomainName.CreateInstanceAndUnwrap(
+                Assembly.GetExecutingAssembly().FullName, typeof(AnimalLoaderAndExecuter).FullName);
             return newDomainName;
         }
 
@@ -92,19 +110,6 @@ namespace GameBusiness
             //var res ="../";
             return res;
         }
-
-        private void LoadAssembly(byte[] stream)
-        {
-            try
-            {
-                this._loader.GetAssembly(stream);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
-
-
-        }
+        #endregion
     }
 }

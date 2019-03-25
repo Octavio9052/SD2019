@@ -11,7 +11,7 @@ using AnimalSDK;
 
 namespace GameBusiness
 {
-    public class Loader : MarshalByRefObject, ILoader
+    public class AnimalLoaderAndExecuter : MarshalByRefObject, ILoader
     {
         private Assembly _assembly;
 
@@ -43,57 +43,64 @@ namespace GameBusiness
             }
         }
 
-        public string Execute(object objDb = null)
+        public AnimalGameValuesWrapper Execute(object objDb = null)
         {
-            var testObj = (AnimalWrapper)objDb;
+            BaseAnimalBusiness baseAnimal;
 
-            if (File.Exists(@"C:\Users\Octavio\Desktop\test.pet"))
+            if (File.Exists(@"C:\Users\Octavio\Desktop\guid.pet"))
             {
-                Stream stream = new FileStream(@"C:\Users\Octavio\Desktop\test.pet", FileMode.Open,
+                Stream stream = new FileStream(@"C:\Users\Octavio\Desktop\guid.pet", FileMode.Open,
                     FileAccess.Read);
                 IFormatter formatter = new BinaryFormatter();
-                testObj = (AnimalWrapper)formatter.Deserialize(stream);
+                baseAnimal = (BaseAnimalBusiness) formatter.Deserialize(stream);
                 stream.Close();
                 stream.Dispose();
-                stream = null;
-
-                BaseAnimalBusiness test;
-                // test = (BaseAnimalBusiness)o;
-                test = testObj.AnimalState;
-                Console.WriteLine(test.Play());
-                Console.WriteLine(test.Play());
-                Console.WriteLine(test.Play());
-
-                IFormatter formatter2 = new BinaryFormatter();
-                Stream stream2 = new FileStream(@"C:\Users\Octavio\Desktop\test.pet", FileMode.Create, FileAccess.Write);
-                formatter2.Serialize(stream2, testObj);
-                stream2.Close();
-                stream2.Dispose();
-                stream2 = null;
+                Console.WriteLine(baseAnimal.Play());
+                Console.WriteLine(baseAnimal.Eat());
+                Console.WriteLine(baseAnimal.Sleep());
             }
             else
-            { 
+            {
                 var t = _assembly.GetType("Animal.Dog");
                 var playMethod = t.GetMethod("Play");
                 var eatMethod = t.GetMethod("Eat");
+                var sleepMethod = t.GetMethod("Sleep");
                 var o = Activator.CreateInstance(t);
+                baseAnimal = (BaseAnimalBusiness) o;
 
                 Console.WriteLine(playMethod.Invoke(o, null));
                 Console.WriteLine(eatMethod.Invoke(o, null));
-                Console.WriteLine(playMethod.Invoke(o, null));
-                Console.WriteLine(playMethod.Invoke(o, null));
-
-                testObj.AnimalState = (BaseAnimalBusiness) o;
-
-                IFormatter formatter2 = new BinaryFormatter();
-                Stream stream2 = new FileStream(@"C:\Users\Octavio\Desktop\test.pet", FileMode.Create, FileAccess.Write);
-                formatter2.Serialize(stream2, testObj);
-                stream2.Close();
-                stream2.Dispose();
-                stream2 = null;
+                Console.WriteLine(sleepMethod.Invoke(o, null));
+                baseAnimal.Sleep();
             }
 
-            return "byte";
+            PersistPetState(baseAnimal);
+
+            var testValuesList = new AnimalGameValuesWrapper();
+
+            testValuesList.MarshalledAnimalGameValuesList = (List<AnimalValue>)baseAnimal.GetGameProperties();
+
+            return testValuesList;
+        }
+
+        private bool PersistPetState(BaseAnimalBusiness o)
+        {
+            IFormatter formatter = new BinaryFormatter();
+            try
+            {
+                Stream stream = new FileStream(@"C:\Users\Octavio\Desktop\guid.pet", FileMode.Create, FileAccess.Write);
+                formatter.Serialize(stream, o);
+
+                stream.Close();
+                stream.Dispose();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
+
+            return true;
         }
     }
 }

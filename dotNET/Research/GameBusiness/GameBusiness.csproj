@@ -51,12 +51,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AnimalWrapper.cs" />
     <Compile Include="AppTest.cs" />
     <Compile Include="Business.cs" />
     <Compile Include="ILoader.cs" />
-    <Compile Include="Loader.cs" />
+    <Compile Include="AnimalLoaderAndExecuter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="AnimalGameValuesWrapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="test.ico" />

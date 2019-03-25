@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace AnimalSDK
 {
     [Serializable]
-    public class AnimalValue : MarshalByRefObject
+    public class AnimalValue
     {
         public string PropertyName { get; set; }
         public string TextProperty { get; set; }

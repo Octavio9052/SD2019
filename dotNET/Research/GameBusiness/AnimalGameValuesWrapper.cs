@@ -7,9 +7,8 @@ using AnimalSDK;
 
 namespace GameBusiness
 {
-    [Serializable]
-    public class AnimalWrapper : MarshalByRefObject
+    public class AnimalGameValuesWrapper : MarshalByRefObject
     {
-        public BaseAnimalBusiness AnimalState { get; set; }
+        public List<AnimalValue> MarshalledAnimalGameValuesList { get; set; }
     }
 }
