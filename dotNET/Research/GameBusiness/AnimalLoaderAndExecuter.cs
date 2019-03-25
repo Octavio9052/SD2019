@@ -11,7 +11,7 @@ using AnimalSDK;
 
 namespace GameBusiness
 {
-    public class AnimalLoaderAndExecuter : MarshalByRefObject, ILoader
+    public class AnimalLoaderAndExecuter : MarshalByRefObject
     {
         private Assembly _assembly;
 
