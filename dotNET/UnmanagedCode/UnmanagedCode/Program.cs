@@ -10,7 +10,7 @@ namespace UnmanagedCode
     {
         static void Main(string[] args)
         {
-            new Unmanaged().Execute();
+            new FileWriter().Execute();
             Console.ReadLine();
         }
     }

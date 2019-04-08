@@ -1,2 +1,0 @@
-UsingSafeHandle nowces
-de un archivo

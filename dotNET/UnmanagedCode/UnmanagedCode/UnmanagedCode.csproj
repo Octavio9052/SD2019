@@ -43,16 +43,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FileWriter.cs" />
+    <Compile Include="GenericAccess.cs" />
+    <Compile Include="WriteAPI.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Unmanaged.cs" />
+    <Compile Include="FileWriter.cs" />
+    <Compile Include="WriteHolder.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Probando.txt" />
+    <Content Include="IntPtr.txt" />
+    <Content Include="SafeHandler.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
