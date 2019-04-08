@@ -20,15 +20,15 @@ namespace PortsUnmanaged
 
         private void btnSend_Click(object sender, EventArgs e)
         {
-            string textToSend = String.Empty;
+            string textToSend = string.Empty;
 
             if (txtSample.Text.Length > 0) textToSend = txtSample.Text;
 
-            // SocketSenderClient.StartClient(textToSend);
+            SocketSenderClient.StartClient(textToSend);
 
-            var senderSocket = SocketSenderClient.ReturnConnectedSocket();
+            /*var senderSocket = SocketSenderClient.ReturnConnectedSocket();
             senderSocket.Send(EncondeText(textToSend));
-            SocketSenderClient.ReleaseSocket(senderSocket);
+            SocketSenderClient.ReleaseSocket(senderSocket);*/
         }
 
         private byte[] EncondeText(string textToSend)

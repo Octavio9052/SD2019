@@ -57,11 +57,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="SocketListener.cs" />
-    <Compile Include="SubcontrollerView.cs">
+    <Compile Include="ListenerView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SubcontrollerView.Designer.cs">
-      <DependentUpon>SubcontrollerView.cs</DependentUpon>
+    <Compile Include="ListenerView.Designer.cs">
+      <DependentUpon>ListenerView.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -74,8 +74,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="SubcontrollerView.resx">
-      <DependentUpon>SubcontrollerView.cs</DependentUpon>
+    <EmbeddedResource Include="ListenerView.resx">
+      <DependentUpon>ListenerView.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

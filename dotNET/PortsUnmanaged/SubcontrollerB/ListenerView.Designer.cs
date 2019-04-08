@@ -1,6 +1,6 @@
 ﻿namespace SubcontrollerB
 {
-    partial class SubcontrollerView
+    partial class ListenerView
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SubcontrollerView));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ListenerView));
             this.txtDisplay = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 

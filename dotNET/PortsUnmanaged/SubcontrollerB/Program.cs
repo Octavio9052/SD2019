@@ -16,7 +16,7 @@ namespace SubcontrollerB
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new SubcontrollerView());
+            Application.Run(new ListenerView());
         }
     }
 }

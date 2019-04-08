@@ -11,15 +11,14 @@ using System.Windows.Forms;
 
 namespace SubcontrollerB
 {
-    public partial class SubcontrollerView : Form
+    public partial class ListenerView : Form
     {
         private static string data = String.Empty;
 
-        public SubcontrollerView()
+        public ListenerView()
         {
             InitializeComponent();
-            Thread test = new Thread(OpenSocket);
-            test.Start();
+            OpenSocket();
         }
 
         private void OpenSocket()

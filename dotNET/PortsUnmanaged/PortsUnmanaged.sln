@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.438
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControllerA", "PortsUnmanaged\ControllerA.csproj", "{D3C66D93-2810-494C-B9D3-0988F18FF1AD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppSend", "PortsUnmanaged\AppSend.csproj", "{D3C66D93-2810-494C-B9D3-0988F18FF1AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SubcontrollerB", "SubcontrollerB\SubcontrollerB.csproj", "{7D749FA8-020A-4D27-AC93-925B890313C1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppListen", "SubcontrollerB\AppListen.csproj", "{7D749FA8-020A-4D27-AC93-925B890313C1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

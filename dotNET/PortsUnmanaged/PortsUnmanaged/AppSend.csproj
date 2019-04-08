@@ -74,17 +74,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ControllerView.cs">
+    <Compile Include="SenderView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ControllerView.Designer.cs">
-      <DependentUpon>ControllerView.cs</DependentUpon>
+    <Compile Include="SenderView.Designer.cs">
+      <DependentUpon>SenderView.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SocketSenderClient.cs" />
-    <EmbeddedResource Include="ControllerView.resx">
-      <DependentUpon>ControllerView.cs</DependentUpon>
+    <EmbeddedResource Include="SenderView.resx">
+      <DependentUpon>SenderView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
