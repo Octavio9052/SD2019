@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Win32.SafeHandles;
 
 namespace UnmanagedCode
 {
@@ -15,6 +16,7 @@ namespace UnmanagedCode
         public uint lpNumberOfBytesWritten;
         public NativeOverlapped lpOverlapped;
         private string stringToEncode;
+        private SafeFileHandle safeFileHandle;
 
 
         private void PrepareArgs()
@@ -41,8 +43,8 @@ namespace UnmanagedCode
 
         private void RetrieveHFile()
         {
-            var test = FileWriter.CreateFile(@"D:\Code\SD19\UnmanagedCode\UnmanagedCode\TestFile.txt", 0x40000000, 0, IntPtr.Zero, 3, 0, IntPtr.Zero);
-            this.hFile = test.DangerousGetHandle();
+            safeFileHandle = FileWriter.CreateFile(@"D:\Code\SD19\dotNET\UnmanagedCode\UnmanagedCode\Probando.txt", 0x40000000, 0, IntPtr.Zero, 3, 0, IntPtr.Zero);
+            //this.safeFileHandle = safeFileHandle;
         }
 
         private void RetrieveOverlapped()
@@ -57,13 +59,15 @@ namespace UnmanagedCode
         public void Execute()
         { 
             PrepareArgs();
-            Console.WriteLine("Operation successful? " + FileWriter.WriteFileOne(hFile,
+            Console.WriteLine("Operation successful? " + FileWriter.WriteFileOne(safeFileHandle,
                                                                                 lpBuffer,
                                                                                 nNumberOfBytesToWrite,
                                                                                 out lpNumberOfBytesWritten,
                                                                                 ref lpOverlapped)
                                                                                 );
-            
+            safeFileHandle.Close();
+            safeFileHandle.Dispose();
+            this.hFile = new IntPtr();
         }
     }
 }

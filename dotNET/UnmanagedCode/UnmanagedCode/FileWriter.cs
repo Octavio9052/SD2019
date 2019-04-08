@@ -21,7 +21,7 @@ namespace UnmanagedCode
                                                 IntPtr hTemplateFile);
 
         [DllImport("kernel32.dll", EntryPoint = "WriteFile")]
-        public static extern bool WriteFileOne(IntPtr hFile,
+        public static extern bool WriteFileOne(SafeHandle hFile,
                                                byte[] lpBuffer,
                                                uint nNumberOfBytesToWrite,
                                                out uint lpNumberOfBytesWritten,
