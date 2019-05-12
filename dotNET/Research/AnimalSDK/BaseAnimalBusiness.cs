@@ -11,9 +11,19 @@ namespace AnimalSDK
     {
         private readonly ICollection<AnimalValue> _gameProperties = new List<AnimalValue>();
 
+        public BaseAnimalBusiness(ICollection<AnimalValue> gameStatus)
+        {
+            this._gameProperties = gameStatus;
+        }
+
         public ICollection<AnimalValue> GetGameProperties()
         {
             return new List<AnimalValue>(this._gameProperties);
+        }
+
+        public AnimalValue GetGameProperty(string name)
+        {
+            return new List<AnimalValue>(this._gameProperties).First(x => x.PropertyName.Equals(name));
         }
 
         public void AddGameProperty(AnimalValue gameProperty)

@@ -31,9 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AnimalSDK">
-      <HintPath>..\AnimalSDK\bin\Debug\AnimalSDK.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -46,6 +43,12 @@
   <ItemGroup>
     <Compile Include="Dog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AnimalSDK\AnimalSDK.csproj">
+      <Project>{6672423f-9fa8-4f58-9b14-40ff49a272da}</Project>
+      <Name>AnimalSDK</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

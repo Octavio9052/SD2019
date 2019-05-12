@@ -12,7 +12,7 @@ using AnimalSDK;
 
 namespace GameBusiness
 {
-    class Business
+    public class Business
     {
         string sourceFileName = @"Animal.dll";
         string sourceDirectory = @"D:\Code\SD19\dotNET\Research\GameBusiness\bin\Debug\Stage";
@@ -31,11 +31,27 @@ namespace GameBusiness
             AppDomain appDomain = null;
             try
             {
-                appDomain = AppDomain.CreateDomain("ProxyDomain");
+                //appDomain = AppDomain.CreateDomain("ProxyDomain");
+                AppDomainSetup appSetup = new AppDomainSetup();
+                appSetup.ApplicationBase = AppDomain.CurrentDomain.BaseDirectory;
 
-                _animalLoaderAndExecuter = (AnimalLoaderAndExecuter) appDomain.CreateInstanceAndUnwrap(
-                    typeof(AnimalLoaderAndExecuter).Assembly.FullName,
-                    typeof(AnimalLoaderAndExecuter).FullName);
+                // Set up the Evidence
+                Evidence baseEvidence = AppDomain.CurrentDomain.Evidence;
+                Evidence evidence = new Evidence(baseEvidence);
+
+                appDomain = AppDomain.CreateDomain("ProxyDomain", evidence, new AppDomainSetup()
+                                                                            {
+                                                                                ApplicationName = "Loader",
+                                                                                ApplicationBase = Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath),
+                                                                                DynamicBase = Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath),
+                                                                                ConfigurationFile = AppDomain.CurrentDomain.SetupInformation.ConfigurationFile,
+                                                                                LoaderOptimization = LoaderOptimization.MultiDomainHost,
+                                                                                PrivateBinPath = GetPrivateBin(AppDomain.CurrentDomain.SetupInformation.ApplicationBase)
+                                                                            });
+
+                _animalLoaderAndExecuter = (GameBusiness.AnimalLoaderAndExecuter) appDomain.CreateInstanceAndUnwrap(
+                    typeof(GameBusiness.AnimalLoaderAndExecuter).Assembly.FullName,
+                    typeof(GameBusiness.AnimalLoaderAndExecuter).FullName);
                 LoadAssembly(FileToByteArray(destinationFilePath));
                 var testRefMarshall = _animalLoaderAndExecuter.Execute();
 
